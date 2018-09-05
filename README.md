@@ -14,7 +14,9 @@ These instructions will get you a copy of the project up and running on your loc
 > - drag 'n drop CacheHelper.swift into your project.
 > - drag 'n drop UIImageViewExtension.swift into your project.
 
-End with an example of getting some data out of the system or using it for a little demo
+### Usage
+
+
 
 ## Authors
 
