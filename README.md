@@ -18,10 +18,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 Set Image on an ImageView from cahce if exists, otherwise make the call with the given imageURL
 
-- Parameters:
-- imageURL: The URL of the image that needs to be retrieved
-- placehoder: A placeholder for the image
-- toBeCahced: Boolean value if image needs to be cached
+Parameters:
+- imageURL: The URL of the image that needs to be retrieved (String)
+- placehoder: A placeholder for the image (UIImage)
+- toBeCahced: Boolean value if image needs to be cached (Bool)
 
 ````
   yourImageView.setImage(withImageURL: imageUrl, placehoder: #imageLiteral(resourceName: "placeholder"), toBeCahced: true)
