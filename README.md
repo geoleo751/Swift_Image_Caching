@@ -16,7 +16,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Usage
 
+````
+yourImageView.setImage(withImageURL: imageUrl, placehoder: #imageLiteral(resourceName: "placeholder"), toBeCahced: true)
 
+````
 
 ## Authors
 
