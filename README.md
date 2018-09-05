@@ -1,6 +1,10 @@
 # Swift_Image_Caching
+======================
 
-Easy way to download and cache Images from the internet to use them in your iOS projects
+[![4.0](https://img.shields.io/badge/Swift%203.0--green.svg)](https://developer.apple.com/swift/)
+[![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
+
+Easy way to download and cache Images from the internet to use them in your iOS projects.
 Written in Swift
 
 ## Getting Started
