@@ -10,26 +10,27 @@ Written in Swift
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Installing
+### Installation
 
-> **Manual:**
+**Manual:**
 
-> - drag 'n drop CacheHelper.swift into your project.
-> - drag 'n drop UIImageViewExtension.swift into your project.
+- drag 'n drop everything in Image Caching folder into your project.
 
 ### Usage
 
-Set Image on an ImageView from cahce if exists, otherwise make the call with the given imageURL
+When you need to download an UIImage and set it to your UIImageView call the methor "setImage" from your UIImageView.
 
-Parameters:
-- imageURL: The URL of the image that needs to be retrieved (String)
-- placehoder: A placeholder for the image (UIImage)
-- toBeCahced: Boolean value if image needs to be cached (Bool)
+If the image is previously downloaded and exists in cache, it is set immediately. Otherwise a network call is made with the given imageURL to fetch the image data.
 
 ````
   yourImageView.setImage(withImageURL: imageUrl, placehoder: #imageLiteral(resourceName: "placeholder"), toBeCahced: true)
 
 ````
+
+Parameters:
+- imageURL: The URL of the image that needs to be retrieved (String)
+- placehoder: A placeholder for the image (UIImage)
+- toBeCahced: Boolean value if image needs to be cached (Bool)
 
 ## Authors
 
