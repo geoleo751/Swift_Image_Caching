@@ -47,7 +47,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TestCell.cellIdentifier, for: indexPath) as? TestCell else { fatalError() }
         
-        cell.mainImageView.setImage(withImageURL: imageUrl, placehoder: #imageLiteral(resourceName: "placeholder"), toBeCahced: true)
+        cell.mainImageView.setImage(withImageURL: imageUrl, placeholder: #imageLiteral(resourceName: "placeholder"), toBeCached: true)
         
         return cell
     }
