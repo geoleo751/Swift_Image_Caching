@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-extension UIImageView {
+public extension UIImageView {
     
     /// Set Image on an ImageView from cahce if exists, otherwise make the call with the given imageURL
     ///
@@ -14,9 +14,9 @@ extension UIImageView {
     ///   - imageURL: The URL of the image that needs to be retrieved
     ///   - placehoder: A placeholder for the image
     ///   - toBeCahced: Boolean value if image needs to be cached
-    func setImage(withImageURL imageURL: String?, placehoder: UIImage? = nil, toBeCahced: Bool = false) {
+    public func setImage(withImageURL imageURL: String?, placeholder: UIImage? = nil, toBeCached: Bool = true, completionBlock: ((Bool) -> Void)? = nil) {
         /// Set placeholder as background image
-        self.image = placehoder
+        self.image = placeholder
         
         /// Safe unwrap of imageURL String
         if let imageURL = imageURL {
@@ -24,18 +24,30 @@ extension UIImageView {
             /// Chaeck if image exists in Cache
             if let image = CacheHelper.get(withIdentifier: imageURL) {
                 self.image = image
+                if let completionBlock = completionBlock {
+                    completionBlock(true)
+                }
             } else {
                 
-                guard let url = URL(string: imageURL) else { return }
+                guard let url = URL(string: imageURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? "") else {
+                    print("Image Cacher: String URL provided for image: \(self.image?.description ?? "") is not valid URL")
+                    if let completionBlock = completionBlock {
+                        completionBlock(false)
+                    }
+                    return
+                }
                 
-                let session = URLSession(configuration: .default)
-        
+                let session = URLSession(configuration: .ephemeral)
+                
                 //creating a dataTask
                 let getImageFromUrl = session.dataTask(with: url) { (data, response, error) in
                     
                     if let e = error {
+                        if let completionBlock = completionBlock {
+                            completionBlock(false)
+                        }
                         // handling error
-                        print("Error Occurred: \(e)")
+                        print(e)
                     } else {
                         //in case of no error, checking wheather the response is nil or not
                         if response as? HTTPURLResponse != nil {
@@ -48,17 +60,26 @@ extension UIImageView {
                                     // Displaying the image in Main Thread
                                     DispatchQueue.main.async {
                                         /// Store image to Cache if we need it
-                                        if toBeCahced {
+                                        if toBeCached {
                                             CacheHelper.set(resultImage, withIdentifier: imageURL)
                                         }
                                         self.image = resultImage
+                                        if let completionBlock = completionBlock {
+                                            completionBlock(true)
+                                        }
                                     }
                                 }
                             } else {
-                                print("Image file is currupted")
+                                if let completionBlock = completionBlock {
+                                    completionBlock(false)
+                                }
+                                print("Image Cacher: Image file is currupted")
                             }
                         } else {
-                            print("No response from server")
+                            if let completionBlock = completionBlock {
+                                completionBlock(false)
+                            }
+                            print("Image Cacher: No response from server")
                         }
                     }
                 }
